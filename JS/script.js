@@ -89,6 +89,24 @@ function clicou(carta) {
   }
 }
 
+function verificarVitoria() {
+  if (paresFeitos === nmrCartas / 2) {
+    buffer = [];
+    clearInterval(funcaoTempo);
+    alert(
+      `Você ganhou em ${jogadas} jogadas! A duração do jogo foi de ${tempo} segundos!`
+    );
+    let reiniciar = "";
+    while (true) {
+      reiniciar = prompt("Começar um novo jogo?");
+      if (reiniciar === "sim") {
+        comecarJogo();
+        break;
+      } else if (reiniciar === "não") break;
+    }
+  }
+}
+
 function verificarCarta() {
   if (buffer.length === 2) {
     console.log(buffer[0].id);
@@ -98,21 +116,7 @@ function verificarCarta() {
     ) {
       buffer = [];
       paresFeitos++;
-      if (paresFeitos === nmrCartas / 2) {
-        buffer = [];
-        clearInterval(funcaoTempo);
-        alert(
-          `Você ganhou em ${jogadas} jogadas! A duração do jogo foi de ${tempo} segundos!`
-        );
-        let reiniciar = "";
-        while (true) {
-          reiniciar = prompt("Começar um novo jogo?");
-          if (reiniciar === "sim") {
-            comecarJogo();
-            break;
-          } else if (reiniciar === "não") break;
-        }
-      }
+      setTimeout(verificarVitoria, 510);
       return true;
     } else {
       return false;
