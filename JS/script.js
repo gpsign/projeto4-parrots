@@ -85,25 +85,8 @@ function clicou(carta) {
     carta.lastElementChild.style.transform = "rotateY(0deg)";
     buffer.push(carta);
     carta.classList.add("virada");
-    if (!verificarCarta()) setTimeout(desvirar, 1000);
-  }
-}
-
-function verificarVitoria() {
-  if (paresFeitos === nmrCartas / 2) {
-    buffer = [];
-    clearInterval(funcaoTempo);
-    alert(
-      `Você ganhou em ${jogadas} jogadas! A duração do jogo foi de ${tempo} segundos!`
-    );
-    let reiniciar = "";
-    while (true) {
-      reiniciar = prompt("Começar um novo jogo?");
-      if (reiniciar === "sim") {
-        comecarJogo();
-        break;
-      } else if (reiniciar === "não") break;
-    }
+    if (!verificarCarta()) setTimeout(desvirar, 1000); 
+    setTimeout(verificarVitoria, 500);
   }
 }
 
@@ -116,7 +99,6 @@ function verificarCarta() {
     ) {
       buffer = [];
       paresFeitos++;
-      setTimeout(verificarVitoria, 510);
       return true;
     } else {
       return false;
@@ -124,6 +106,24 @@ function verificarCarta() {
   } else return true;
 }
 
+function verificarVitoria() {
+    if (paresFeitos === nmrCartas / 2) {
+      buffer = [];
+      clearInterval(funcaoTempo);
+      alert(
+        `Você ganhou em ${jogadas} jogadas! A duração do jogo foi de ${tempo} segundos!`
+      );
+      let reiniciar = "";
+      while (true) {
+        reiniciar = prompt("Começar um novo jogo?");
+        if (reiniciar === "sim") {
+          comecarJogo();
+          break;
+        } else if (reiniciar === "não") break;
+      }
+    }
+  }
+  
 function desvirar() {
   buffer[0].firstElementChild.style.transform = "rotateY(0deg)";
   buffer[0].lastElementChild.style.transform = "rotateY(-180deg)";
