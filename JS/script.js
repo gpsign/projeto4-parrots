@@ -16,11 +16,11 @@ let pares = [
   "tripletsparrot",
   "unicornparrot",
 ];
-pares.sort(comparador);
 
 comecarJogo();
 
 function comecarJogo() {
+  pares.sort(comparador);
   nmrCartas = 0;
   jogadas = 0;
   paresFeitos = 0;
@@ -85,16 +85,19 @@ function clicou(carta) {
     carta.lastElementChild.style.transform = "rotateY(0deg)";
     buffer.push(carta);
     carta.classList.add("virada");
+    setTimeout(verificarJogada, 200);
+  }
+  
+  function verificarJogada() {
     if (!verificarCarta()) setTimeout(desvirar, 1000);
     if (paresFeitos === nmrCartas / 2) {
-        setTimeout(anunciarVitoria, 300)
-      }
+      anunciarVitoria();
+    }
   }
 }
 
 function verificarCarta() {
   if (buffer.length === 2) {
-    console.log(buffer[0].id);
     if (
       buffer[0].lastElementChild.firstElementChild.src ==
       buffer[1].lastElementChild.firstElementChild.src
@@ -108,20 +111,20 @@ function verificarCarta() {
   } else return true;
 }
 
-function anunciarVitoria(){
-    buffer = [];
-    clearInterval(funcaoTempo);
-    alert(
-        `Você ganhou em ${jogadas} jogadas! A duração do jogo foi de ${tempo} segundos!`
-      );
-      let reiniciar = "";
-      while (true) {
-        reiniciar = prompt("Começar um novo jogo?");
-        if (reiniciar === "sim") {
-          comecarJogo();
-          break;
-        } else if (reiniciar === "não") break;
-      }
+function anunciarVitoria() {
+  buffer = [];
+  clearInterval(funcaoTempo);
+  alert(
+    `Você ganhou em ${jogadas} jogadas! A duração do jogo foi de ${tempo} segundos!`
+  );
+  let reiniciar = "";
+  while (true) {
+    reiniciar = prompt("Começar um novo jogo?");
+    if (reiniciar === "sim") {
+      comecarJogo();
+      break;
+    } else if (reiniciar === "não") break;
+  }
 }
 
 function desvirar() {
