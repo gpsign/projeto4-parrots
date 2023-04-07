@@ -87,7 +87,7 @@ function clicou(carta) {
     carta.classList.add("virada");
     if (!verificarCarta()) setTimeout(desvirar, 1000);
     if (paresFeitos === nmrCartas / 2) {
-        setTimeout(anunciarVitoria, 501)
+        setTimeout(anunciarVitoria, 300)
       }
   }
 }
