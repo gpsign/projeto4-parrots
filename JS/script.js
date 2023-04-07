@@ -17,6 +17,8 @@ let pares = [
   "unicornparrot",
 ];
 
+
+
 comecarJogo();
 
 function comecarJogo() {
@@ -91,7 +93,7 @@ function clicou(carta) {
   function verificarJogada() {
     if (!verificarCarta()) setTimeout(desvirar, 800);
     if (paresFeitos === nmrCartas / 2) {
-      setTimeout(anunciarVitoria, 500);
+      anunciarVitoria();
     }
   }
 }
