@@ -4,6 +4,7 @@ let jogadas = 0;
 let paresFeitos = 0;
 let tempo = 0;
 let funcaoTempo;
+let tela;
 let deck = [];
 let buffer = [];
 let pares = [
@@ -31,34 +32,46 @@ function comecarJogo() {
   }
 
   for (let i = 0; i < nmrCartas / 2; i++) {
-    deck.push(`<div class="card" onclick="clicou(this)">
+    deck.push(`<div class="card" data-test="card" onclick="clicou(this)">
     <div class="front-face face">
-      <img src="./imgs/back.png"></img>
+      <img src="./imgs/back.png" data-test="face-down-image"></img>
     </div>
     <div class="back-face face">
-      <img src="./imgs/${pares[i]}.gif"></img>
+      <img src="./imgs/${pares[i]}.gif" data-test="face-up-image"></img>
     </div>
   </div>`);
-    deck.push(`<div class="card" onclick="clicou(this)">
+    deck.push(`<div class="card" data-test="card" onclick="clicou(this)">
   <div class="front-face face">
-    <img src="./imgs/back.png"></img>
+    <img src="./imgs/back.png" data-test="face-down-image"></img>
   </div>
   <div class="back-face face">
-    <img src="./imgs/${pares[i]}.gif"></img>
+    <img src="./imgs/${pares[i]}.gif" data-test="face-up-image"></img>
   </div>
   </div>`);
   }
 
   deck.sort(comparador);
 
-  mesa.innerHTML = deck.join(" ");
-  mesa.style.gridTemplateColumns = `repeat(${deck.length / 2}, 117px)`;
+  setInterval(ajustaTela, 100);
 
-  document.querySelector(".cronometro").innerHTML = `<p>0</p>`;
+  mesa.innerHTML = deck.join(" ");
+
+  document.querySelector(".cronometro p").innerHTML = 0;
   funcaoTempo = setInterval(() => {
     tempo++;
-    document.querySelector(".cronometro").innerHTML = `<p>${tempo}</p>`;
+    document.querySelector(".cronometro p").innerHTML = tempo;
   }, 1000);
+}
+
+function ajustaTela() {
+  tela = window.matchMedia("(max-width: 1024px)");
+  if (!tela.matches) {
+    mesa.style.gridTemplateColumns = `repeat(${deck.length / 2}, 117px)`;
+    mesa.style.gridTemplateRows = `repeat(2, 146px)`;
+  } else {
+    mesa.style.gridTemplateColumns = "117px";
+    mesa.style.gridTemplateRows = `repeat(${deck.length}, 146px)`;
+  }
 }
 
 function comparador() {
