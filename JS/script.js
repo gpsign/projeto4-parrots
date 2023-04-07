@@ -17,52 +17,48 @@ let pares = [
   "unicornparrot",
 ];
 
-
-
+setInterval(ajustaTela, 100);
 comecarJogo();
 
 function comecarJogo() {
   pares.sort(comparador);
+  deck = [];
   nmrCartas = 0;
   jogadas = 0;
   paresFeitos = 0;
   tempo = 0;
-  deck = [];
 
   while (nmrCartas < 4 || nmrCartas > 14 || nmrCartas % 2 !== 0) {
     nmrCartas = prompt("Numero de cartas:");
   }
 
-  for (let i = 0; i < nmrCartas / 2; i++) {
-    deck.push(`<div class="card" data-test="card" onclick="clicou(this)">
-    <div class="front-face face">
-      <img src="./imgs/back.png" data-test="face-down-image"></img>
-    </div>
-    <div class="back-face face">
-      <img src="./imgs/${pares[i]}.gif" data-test="face-up-image"></img>
-    </div>
-  </div>`);
-    deck.push(`<div class="card" data-test="card" onclick="clicou(this)">
-  <div class="front-face face">
-    <img src="./imgs/back.png" data-test="face-down-image"></img>
-  </div>
-  <div class="back-face face">
-    <img src="./imgs/${pares[i]}.gif" data-test="face-up-image"></img>
-  </div>
-  </div>`);
-  }
-
+  gerarDeck();
   deck.sort(comparador);
-
-  setInterval(ajustaTela, 100);
 
   mesa.innerHTML = deck.join(" ");
 
   document.querySelector(".cronometro p").innerHTML = 0;
-  funcaoTempo = setInterval(() => {
-    tempo++;
-    document.querySelector(".cronometro p").innerHTML = tempo;
-  }, 1000);
+  funcaoTempo = setInterval(cronometrar, 1000);
+}
+
+function gerarDeck() {
+  for (let i = 0; i < nmrCartas / 2; i++) {
+    for (let j = 0; j < 2; j++) {
+      deck.push(`<div class="card" data-test="card" onclick="clicou(this)">
+        <div class="front-face face">
+          <img src="./imgs/back.png" data-test="face-down-image"></img>
+        </div>
+        <div class="back-face face">
+          <img src="./imgs/${pares[i]}.gif" data-test="face-up-image"></img>
+        </div>
+      </div>`);
+    }
+  }
+}
+
+function cronometrar() {
+  tempo++;
+  document.querySelector(".cronometro p").innerHTML = tempo;
 }
 
 function ajustaTela() {
@@ -82,19 +78,23 @@ function comparador() {
 
 function clicou(carta) {
   if (buffer.length < 2 && !carta.classList.contains("virada")) {
-    jogadas++;
-    carta.firstElementChild.style.transform = "rotateY(-180deg)";
-    carta.lastElementChild.style.transform = "rotateY(0deg)";
     buffer.push(carta);
-    carta.classList.add("virada");
+    jogadas++;
+    virar();
     setTimeout(verificarJogada, 200);
   }
+}
 
-  function verificarJogada() {
-    if (!verificarCarta()) setTimeout(desvirar, 800);
-    if (paresFeitos === nmrCartas / 2) {
-      anunciarVitoria();
-    }
+function virar() {
+  buffer[buffer.length - 1].firstElementChild.style.transform = "rotateY(-180deg)";
+  buffer[buffer.length - 1].lastElementChild.style.transform = "rotateY(0deg)";
+  buffer[buffer.length - 1].classList.add("virada");
+}
+
+function verificarJogada() {
+  if (!verificarCarta()) setTimeout(desvirar, 800);
+  if (paresFeitos === nmrCartas / 2) {
+    anunciarVitoria();
   }
 }
 
