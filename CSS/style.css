@@ -5,25 +5,50 @@ body {
   align-items: center;
 }
 
+.cronometro {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 64px;
+  height: 64px;
+  background-color: #99CEA8;
+  border-radius: 10px;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+}
+
+.cronometro p {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 36px;
+  color:#eef9bf;
+  filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.3));
+}
+
 .titulo {
   font-family: "Roboto", sans-serif;
   font-weight: 700;
   font-size: 56px;
   margin: 40px 0px 47px 0px;
-  color: #75B79E;
+  color: #75b79e;
 }
 
 .mesa {
   width: 872px;
   height: 326px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+  display: inline-grid;
+  grid-template-rows: repeat(2, 146px);
+  justify-content: center;
+  align-items: center;
+  gap: 34px;
 }
 
-img{
-    width: 100px;
-    height: 100px;
+img {
+  width: 100px;
+  height: 100px;
 }
 
 .card {
@@ -36,6 +61,7 @@ img{
   width: 100%;
   height: 100%;
   background-color: #a7e9af;
+  border: 1px solid #99cea8;
   border-radius: 10px;
   box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
   display: flex;
