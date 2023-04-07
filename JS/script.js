@@ -135,5 +135,5 @@ function desvirar() {
     buffer[0].classList.remove("virada");
     buffer[1].classList.remove("virada");
     buffer = [];
-  }, 500);
+  }, 200);
 }
