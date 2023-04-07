@@ -86,7 +86,9 @@ function clicou(carta) {
     buffer.push(carta);
     carta.classList.add("virada");
     if (!verificarCarta()) setTimeout(desvirar, 1000);
-    setTimeout(verificarVitoria, 500);
+    if (paresFeitos === nmrCartas / 2) {
+        setTimeout(anunciarVitoria, 500)
+      }
   }
 }
 
@@ -106,22 +108,20 @@ function verificarCarta() {
   } else return true;
 }
 
-function verificarVitoria() {
-  if (paresFeitos === nmrCartas / 2) {
+function anunciarVitoria(){
     buffer = [];
     clearInterval(funcaoTempo);
     alert(
-      `Você ganhou em ${jogadas} jogadas! A duração do jogo foi de ${tempo} segundos!`
-    );
-    let reiniciar = "";
-    while (true) {
-      reiniciar = prompt("Começar um novo jogo?");
-      if (reiniciar === "sim") {
-        comecarJogo();
-        break;
-      } else if (reiniciar === "não") break;
-    }
-  }
+        `Você ganhou em ${jogadas} jogadas! A duração do jogo foi de ${tempo} segundos!`
+      );
+      let reiniciar = "";
+      while (true) {
+        reiniciar = prompt("Começar um novo jogo?");
+        if (reiniciar === "sim") {
+          comecarJogo();
+          break;
+        } else if (reiniciar === "não") break;
+      }
 }
 
 function desvirar() {
