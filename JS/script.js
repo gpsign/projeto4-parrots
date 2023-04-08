@@ -86,7 +86,8 @@ function clicou(carta) {
 }
 
 function virar() {
-  buffer[buffer.length - 1].firstElementChild.style.transform = "rotateY(-180deg)";
+  buffer[buffer.length - 1].firstElementChild.style.transform =
+    "rotateY(-180deg)";
   buffer[buffer.length - 1].lastElementChild.style.transform = "rotateY(0deg)";
   buffer[buffer.length - 1].classList.add("virada");
 }
@@ -95,6 +96,7 @@ function verificarJogada() {
   if (!verificarCarta()) setTimeout(desvirar, 800);
   if (paresFeitos === nmrCartas / 2) {
     anunciarVitoria();
+    novoJogo();
   }
 }
 
@@ -119,13 +121,15 @@ function anunciarVitoria() {
   alert(
     `Você ganhou em ${jogadas} jogadas! A duração do jogo foi de ${tempo} segundos!`
   );
+}
+
+function novoJogo() {
   let reiniciar = "";
-  while (true) {
+  while (reiniciar !== "não" && reiniciar !== "sim") {
     reiniciar = prompt("Começar um novo jogo?");
     if (reiniciar === "sim") {
-      comecarJogo();
-      break;
-    } else if (reiniciar === "não") break;
+      setTimeout(comecarJogo, 100);
+    }
   }
 }
 
