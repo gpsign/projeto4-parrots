@@ -46,10 +46,10 @@ function gerarDeck() {
     for (let j = 0; j < 2; j++) {
       deck.push(`<div class="card" data-test="card" onclick="clicou(this)">
         <div class="front-face face">
-          <img src="./imgs/back.png" data-test="face-down-image"></img>
+          <img data-test="face-down-image" src="./imgs/back.png"></img>
         </div>
         <div class="back-face face">
-          <img src="./imgs/${pares[i]}.gif" data-test="face-up-image"></img>
+          <img data-test="face-up-image" src="./imgs/${pares[i]}.gif"></img>
         </div>
       </div>`);
     }
@@ -94,7 +94,7 @@ function virar() {
 
 function verificarJogada() {
   if (!verificarCarta()) setTimeout(desvirar, 800);
-  if (paresFeitos === nmrCartas / 2) {
+  else if (paresFeitos === nmrCartas / 2) {
     anunciarVitoria();
     novoJogo();
   }
@@ -128,7 +128,7 @@ function novoJogo() {
   while (reiniciar !== "não" && reiniciar !== "sim") {
     reiniciar = prompt("Começar um novo jogo?");
     if (reiniciar === "sim") {
-      setTimeout(comecarJogo, 100);
+      setTimeout(comecarJogo, 10);
     }
   }
 }
