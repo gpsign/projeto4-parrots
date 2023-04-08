@@ -81,7 +81,7 @@ function clicou(carta) {
     buffer.push(carta);
     jogadas++;
     virar();
-    setTimeout(verificarJogada, 500);
+    verificarJogada();
   }
 }
 
@@ -95,8 +95,10 @@ function virar() {
 function verificarJogada() {
   if (!verificarCarta()) setTimeout(desvirar, 1000);
   else if (paresFeitos === nmrCartas / 2) {
-    anunciarVitoria();
-    novoJogo();
+    setTimeout(() => {
+      anunciarVitoria();
+      novoJogo();
+    }, 1000);
   }
 }
 
@@ -126,7 +128,7 @@ function novoJogo() {
   let reiniciar = "";
   while (reiniciar !== "não" && reiniciar !== "sim") {
     reiniciar = prompt("Começar um novo jogo?");
-    if (reiniciar === "sim")comecarJogo();
+    if (reiniciar === "sim") comecarJogo();
   }
 }
 
