@@ -33,7 +33,6 @@ function comecarJogo() {
   }
 
   gerarDeck();
-  deck.sort(comparador);
 
   mesa.innerHTML = deck.join(" ");
 
@@ -53,6 +52,7 @@ function gerarDeck() {
         </div>
       </div>`);
     }
+    deck.sort(comparador);
   }
 }
 
@@ -81,7 +81,7 @@ function clicou(carta) {
     buffer.push(carta);
     jogadas++;
     virar();
-    setTimeout(verificarJogada, 200);
+    setTimeout(verificarJogada, 500);
   }
 }
 
@@ -93,7 +93,7 @@ function virar() {
 }
 
 function verificarJogada() {
-  if (!verificarCarta()) setTimeout(desvirar, 800);
+  if (!verificarCarta()) setTimeout(desvirar, 1000);
   else if (paresFeitos === nmrCartas / 2) {
     anunciarVitoria();
     novoJogo();
@@ -116,7 +116,6 @@ function verificarCarta() {
 }
 
 function anunciarVitoria() {
-  buffer = [];
   clearInterval(funcaoTempo);
   alert(
     `Você ganhou em ${jogadas} jogadas! A duração do jogo foi de ${tempo} segundos!`
@@ -127,9 +126,7 @@ function novoJogo() {
   let reiniciar = "";
   while (reiniciar !== "não" && reiniciar !== "sim") {
     reiniciar = prompt("Começar um novo jogo?");
-    if (reiniciar === "sim") {
-      setTimeout(comecarJogo, 10);
-    }
+    if (reiniciar === "sim")comecarJogo();
   }
 }
 
@@ -144,5 +141,5 @@ function desvirar() {
     buffer[0].classList.remove("virada");
     buffer[1].classList.remove("virada");
     buffer = [];
-  }, 200);
+  }, 500);
 }
